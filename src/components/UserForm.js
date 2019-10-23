@@ -20,7 +20,7 @@ const UserForm = ({obj}) => {
                 <div className="mar" style={{ background: '#fff', padding: 24, minHeight: 380, width: 500, }}><h1>UserForm</h1>
                     <Form className="form" onSubmit={handleSubmit}>
                         <Form.Item label="First Name">
-                            <Input value={firstName} onChange={handleFirstName} />
+                            <Input value={firstName} onChange={handleFirstName}/>
                         </Form.Item>
                         <Form.Item label="Last Name">
                             <Input value={lastName} onChange={handleLastName} />

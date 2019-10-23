@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Route} from 'react-router-dom'
-// import { Button } from 'antd';
+import { BrowserRouter, Route, Redirect} from 'react-router-dom'
 import '../App.css'
 import PageHeader from './Header';
 import UserTable from './UserTable';
 import UserForm from './UserForm';
+
 
 
 const App = () => {
@@ -29,8 +29,10 @@ const App = () => {
     const [birthday, setBirthday] = useState("")
     const [age, setAge] = useState("")
     const [hobby, setHobby] = useState("")
+    const [redirect, setRedirect] = useState(false)
         
     const handleFirstName = (event) => {
+        setRedirect(false)
         console.log(event.target.value)
         setFirstName(event.target.value)
     }
@@ -66,8 +68,15 @@ const App = () => {
         console.log(newObject)
         setData(data.concat(newObject))
         console.log(data)
-        // console.log(document.getElementsByClassName('form').resetFields())
-        // return <Link to='/'/>
+        setTimeout(() => {
+            setFirstName("")
+            setLastName("")
+            setBirthday("")
+            setAge("")
+            setHobby("")
+            setRedirect(true)
+        }, 500)
+        
     }
     const obj = {
         handleFirstName: handleFirstName,
@@ -81,16 +90,14 @@ const App = () => {
         age: age,
         hobby: hobby
     }
-    const handleUserForm = () => {
-        return <UserForm obj={obj}/>
-    }
     return(
         <div>
             <BrowserRouter>
                 <div>
-                    <PageHeader obj={obj}/>
-                    <Route path="/" exact component={() => <UserTable data={data}/>}/>
-                    <Route path="/user/form/" exact component={handleUserForm}/> 
+                    <PageHeader/>
+                    <Route path="/" exact render={() => <UserTable data={data}/>}/>
+                    <Route path="/user/form/" exact render={() => <UserForm obj={obj}/>}/> 
+                    {redirect ? <Redirect to="/"/>: ""}
                 </div>
             </BrowserRouter>
         </div>
