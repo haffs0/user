@@ -1,11 +1,12 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { Layout, Table} from 'antd';
 
 
 const { Content, Footer } = Layout;
 
-const UserTable = ({data}) => {
-    console.log(data)
+const UserTable = () => {
+    const data = useSelector(state => state.userInfo)
     const columns = [
         {
           title: 'First Name',
